@@ -1,0 +1,19 @@
+{
+  search(query: "type:pr state:open review-requested:@me", type: ISSUE, first: 100) {
+    issueCount
+    edges {
+      node {
+        ... on PullRequest {
+          repository {
+            nameWithOwner
+          }
+          author {
+            login
+          }
+          url
+          title
+        }
+      }
+    }
+  }
+}
