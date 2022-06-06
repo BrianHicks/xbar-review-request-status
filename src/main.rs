@@ -16,14 +16,14 @@ pub struct Config {
     #[clap(env = "GITHUB_API_TOKEN")]
     github_api_token: String,
 
-    /// This emoji will be printed by the count when you have no review requests
-    #[clap(long = "done-emoji", default_value = "✨")]
-    done_emoji: String,
+    /// This caption will be printed by the count when you have no review requests
+    #[clap(long = "done-caption", default_value = "✨")]
+    done_caption: String,
 
-    /// This emoji will be printed by the count when you have outstanding
+    /// This caption will be printed by the count when you have outstanding
     /// review requests
-    #[clap(long = "todo-emoji", default_value = "👀")]
-    todo_emoji: String,
+    #[clap(long = "todo-caption", default_value = "👀")]
+    todo_caption: String,
 }
 
 fn main() {
@@ -52,9 +52,9 @@ fn try_main() -> Result<()> {
     }
 
     if menu_lines.is_empty() {
-        println!("0 {}", config.done_emoji);
+        println!("0 {}", config.done_caption);
     } else {
-        println!("{} {}", menu_lines.len(), config.todo_emoji);
+        println!("{} {}", menu_lines.len(), config.todo_caption);
         println!("---");
         for line in menu_lines {
             println!("{line}");
