@@ -1,0 +1,22 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+
+jobs:
+  build-and-test:
+    name: build
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-11]
+    runs-on: "${{ matrix.os }}"
+    steps:
+      - uses: actions/checkout@v3
+      - uses: cachix/install-nix-action@v17
+      - uses: cachix/cachix-action@v10
+        with:
+          name: xbar-review-request-status
+          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+
+      - run: nix build --print-build-logs
