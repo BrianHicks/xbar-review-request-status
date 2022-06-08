@@ -1,5 +1,9 @@
 {
-  search(query: "type:pr state:open review-requested:@me", type: ISSUE, first: 100) {
+  search(
+    query: "type:pr state:open review-requested:@me"
+    type: ISSUE
+    first: 100
+  ) {
     nodes {
       ... on PullRequest {
         author {
