@@ -24,6 +24,26 @@ pub struct Config {
     /// review requests
     #[clap(long = "todo-caption", default_value = "👀")]
     todo_caption: String,
+
+    /// This caption will be printed on PRs that have an "expected" status
+    #[clap(long = "status-expected-caption", default_value = "🕓")]
+    status_expected_caption: String,
+
+    /// This caption will be printed on PRs that have an "error" status
+    #[clap(long = "status-error-caption", default_value = "🔥")]
+    status_error_caption: String,
+
+    /// This caption will be printed on PRs that have an "failure" status
+    #[clap(long = "status-failure-caption", default_value = "🌑")]
+    status_failure_caption: String,
+
+    /// This caption will be printed on PRs that have an "pending" status
+    #[clap(long = "status-pending-caption", default_value = "🌓")]
+    status_pending_caption: String,
+
+    /// This caption will be printed on PRs that have an "success" status
+    #[clap(long = "status-success-caption", default_value = "🌕")]
+    status_success_caption: String,
 }
 
 fn main() {
@@ -43,8 +63,18 @@ fn try_main() -> Result<()> {
     let mut menu_lines: Vec<String> = Vec::new();
 
     for pr_value in prs.get_array("/data/search/nodes")? {
+        let caption = match pr_value.get_str("/commits/nodes/0/commit/statusCheckRollup/state")? {
+            "EXPECTED" => &config.status_expected_caption,
+            "ERROR" => &config.status_error_caption,
+            "FAILURE" => &config.status_failure_caption,
+            "PENDING" => &config.status_pending_caption,
+            "SUCCESS" => &config.status_success_caption,
+            unknown => unknown,
+        };
+
         menu_lines.push(format!(
-            "{} by {} | href={}",
+            "{} {} by {} | href={}",
+            caption,
             pr_value.get_str("/title")?,
             pr_value.get_str("/author/login")?,
             pr_value.get_str("/url")?

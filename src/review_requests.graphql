@@ -11,6 +11,15 @@
         }
         url
         title
+        commits(last: 1) {
+          nodes {
+            commit {
+              statusCheckRollup {
+                state
+              }
+            }
+          }
+        }
       }
     }
   }
