@@ -78,7 +78,13 @@ fn try_main() -> Result<()> {
             pr_value.get_str("/title")?,
             pr_value.get_str("/author/login")?,
             pr_value.get_str("/url")?
-        ))
+        ));
+
+        menu_lines.push(format!(
+            "-- {} | shell=bash param1=-c param2=\"printf '%s' '{}' | pbcopy\"",
+            pr_value.get_str("/headRefName")?,
+            pr_value.get_str("/headRefName")?,
+        ));
     }
 
     if menu_lines.is_empty() {

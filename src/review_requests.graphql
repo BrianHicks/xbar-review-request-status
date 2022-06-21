@@ -11,6 +11,7 @@
         }
         url
         title
+        headRefName
         commits(last: 1) {
           nodes {
             commit {
