@@ -62,8 +62,9 @@ fn try_main() -> Result<()> {
 
     let mut menu_lines: Vec<String> = Vec::new();
 
-    for pr_value in prs.get_array("/data/search/nodes")? {
-        let caption = match pr_value.get_str("/commits/nodes/0/commit/statusCheckRollup/state")? {
+    let prs = prs.get_array("/data/search/nodes")?;
+    for pr in prs {
+        let caption = match pr.get_str("/commits/nodes/0/commit/statusCheckRollup/state")? {
             "EXPECTED" => &config.status_expected_caption,
             "ERROR" => &config.status_error_caption,
             "FAILURE" => &config.status_failure_caption,
@@ -75,22 +76,22 @@ fn try_main() -> Result<()> {
         menu_lines.push(format!(
             "{} {} by {} | href={}",
             caption,
-            pr_value.get_str("/title")?,
-            pr_value.get_str("/author/login")?,
-            pr_value.get_str("/url")?
+            pr.get_str("/title")?,
+            pr.get_str("/author/login")?,
+            pr.get_str("/url")?
         ));
 
         menu_lines.push(format!(
             "-- {} | shell=bash param1=-c param2=\"printf '%s' '{}' | pbcopy\"",
-            pr_value.get_str("/headRefName")?,
-            pr_value.get_str("/headRefName")?,
+            pr.get_str("/headRefName")?,
+            pr.get_str("/headRefName")?,
         ));
     }
 
     if menu_lines.is_empty() {
         println!("0 {}", config.done_caption);
     } else {
-        println!("{} {}", menu_lines.len(), config.todo_caption);
+        println!("{} {}", prs.len(), config.todo_caption);
         println!("---");
         for line in menu_lines {
             println!("{line}");
