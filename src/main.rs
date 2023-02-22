@@ -50,7 +50,7 @@ fn main() {
     env_logger::Builder::from_env("XBAR_REVIEW_REQUEST_STATUS_LOG").init();
 
     if let Err(err) = try_main() {
-        println!("{:?}", err);
+        println!("{err:?}");
         std::process::exit(1);
     }
 }
@@ -115,7 +115,7 @@ fn fetch(api_token: &str) -> Result<Value> {
         .post("https://api.github.com/graphql")
         .header(
             header::AUTHORIZATION,
-            header::HeaderValue::from_str(&format!("Bearer {}", api_token))
+            header::HeaderValue::from_str(&format!("Bearer {api_token}"))
                 .context("could not create an Authorization header from the specified token")?,
         )
         .json(&json!({ "query": include_str!("review_requests.graphql") }))
