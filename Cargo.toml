@@ -8,7 +8,7 @@ description = "Format GitHub review requests for use in an xbar script"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-anyhow = "1.0.74"
+anyhow = "1.0.75"
 clap = { version = "4.3.22", features = [ "std", "color", "suggestions", "derive", "cargo", "wrap_help", "env" ] }
 env_logger = "0.10.0"
 log = "0.4.20"
