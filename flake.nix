@@ -12,7 +12,10 @@
         pkgs = nixpkgs.legacyPackages."${system}";
         naersk-lib = naersk.lib."${system}";
         darwinInputs = if pkgs.stdenv.isDarwin then
-          [ pkgs.darwin.apple_sdk.frameworks.Security ]
+          [
+            pkgs.darwin.apple_sdk.frameworks.Security
+            pkgs.darwin.apple_sdk.frameworks.SystemConfiguration
+          ]
         else
           [ ];
       in rec {
