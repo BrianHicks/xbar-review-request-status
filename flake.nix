@@ -11,13 +11,11 @@
       let
         pkgs = nixpkgs.legacyPackages."${system}";
         naersk-lib = naersk.lib."${system}";
-        darwinInputs = if pkgs.stdenv.isDarwin then
+        darwinInputs = pkgs.lib.optional pkgs.stdenv.isDarwin
           [
             pkgs.darwin.apple_sdk.frameworks.Security
             pkgs.darwin.apple_sdk.frameworks.SystemConfiguration
-          ]
-        else
-          [ ];
+          ];
       in rec {
         # `nix build`
         packages.xbar-review-request-status = naersk-lib.buildPackage {
