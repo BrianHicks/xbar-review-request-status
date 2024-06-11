@@ -1,4 +1,4 @@
-# xbar PR status
+# xbar request review status
 
 This is an [xbar](https://xbarapp.com/) plugin that creates a view of your open GitHub review requests.
 The menubar item opens to a list of linked PRs.
