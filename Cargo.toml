@@ -9,7 +9,7 @@ description = "Format GitHub review requests for use in an xbar script"
 
 [dependencies]
 anyhow = "1.0.89"
-clap = { version = "4.5.17", features = [ "std", "color", "suggestions", "derive", "cargo", "wrap_help", "env" ] }
+clap = { version = "4.5.18", features = [ "std", "color", "suggestions", "derive", "cargo", "wrap_help", "env" ] }
 env_logger = "0.10.2"
 log = "0.4.22"
 reqwest = { version = "0.12.7", features = [ "blocking", "json" ] }
